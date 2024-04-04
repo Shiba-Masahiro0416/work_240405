@@ -1,0 +1,110 @@
+@charset "utf-8";
+/* body要素のスタイル */
+body {
+    font-family: 'Dela Gothic One', sans-serif;
+    font-size: 4rem;
+    color: #F083D2;
+    background-color: #a0fadc;
+}
+/* ボタンの配置場所のスタイル */
+header div {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 0 auto;
+    background-color: azure;
+}
+/* ボタンのスタイル */
+header button {
+    border: double 3px #F083D2;
+    border-radius: 10px;
+    width: 20%;
+    text-align: center;
+    font-size: 1.6rem;
+    background-color: rgba(250,250,250,0.5);
+    margin: 3px;
+    height: 3rem;
+    padding-top: 2px;
+}
+/* メインビジュアルのスタイル */
+header img {
+    width: 100%;
+    height: 19rem;
+}
+/* scoreとtimeの画像のスタイル */
+main p img {
+    width: 16%;
+    margin-top: 1%;
+}
+/* 正解した時に表示される画像のスタイル */
+#maru { 
+    width: 24%;
+    position: fixed;
+    left: 40%;
+    top: 10%;
+    z-index: 100;
+    background-color: azure;
+    border-radius: 10%;
+    padding: 2rem;
+}
+/* 結果が100点以上の時に表示される画像のスタイル */
+#hanamaru {
+    width: 32%;
+    position: fixed;
+    left: 32%;
+    top: 5%;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10%;
+    padding: 1rem;
+}
+/* 演算子の画像のスタイル */
+form img {
+    width: 6%;
+    margin-top: 1%;
+}
+/* 問題フォームのスタイル */
+#a {
+    border: double 5px #F083D2;
+    border-radius: 30px;
+    text-align: center;
+    margin-left: 2%;
+    background-color: azure;
+}
+#b {
+    border: double 5px #F083D2;
+    border-radius: 30px;
+    text-align: center;
+    background-color: azure;
+}
+#c {
+    border: double 5px #F083D2;
+    border-radius: 30px;
+    text-align: center;
+    background-color: azure;
+}
+/* startボタンのスタイル */
+.start {
+    text-align: center;
+    margin: 1% 0;
+}
+input[type=button] {
+    border: double 5px azure;
+    color: azure;
+    background-color:#F083D2 ;
+    width: 20%;
+    height: 4rem;
+    text-align: center;
+    border-radius: 30px;
+    font-size: 2.4rem;
+}
+/* フッターのスタイル */
+footer {
+    background-color: darkblue;
+}
+footer p {
+    text-align: center;
+    font-size: 1rem;
+    color: azure;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

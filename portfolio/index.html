@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel ="stylesheet" href="css/reset.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic&amp;display=swap" rel="stylesheet">
+    <link rel="icon" href="img/icon.svg" type="image/svg+xml">
+    <link rel="icon alternate" href="img/icon.png" type="image/png">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Shiba`s Portfolio</title>
+</head>
+<body>
+    <header>
+        <!-- サイト名 -->
+        <h1><img src="img/banner.png" alt="Shiba`s Portfolio"></h1>
+        <!-- グローバルナビゲーション （ページ内リンク集）-->
+        <nav>
+            <ul>
+                <li><a href="#Profile"> Profile</a></li>
+                <li><a href="#Skills"> Skills</a></li>
+                <li><a href="#Works">Works</a></li>
+                <li><a href="#Contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- メインビジュアルの表示スペース -->
+        <div class="img-box">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <!-- バックグラウンドカラー表示範囲 -->
+        <div class="bg">
+            <!-- プロフィールのセクション -->
+            <section class="Profile" id="Profile">
+            <h2><img src="img/profile.png" alt="Profile"></h2>
+            <div>
+                <p><img src="img/illust.JPG" alt="似顔絵"></p>
+                <p id="prof">
+                2023年10月まで小中学校でプログラミング授業を担当しておりました。<br>
+                    これまで独学でJavaやC言語などのプログラミング言語をを学んで参りましたが、<br>
+                    前職にて子どもたちにプログラミングを教えていく中でより高度なスキルを身につけ<br>
+                    フロントエンドもバックエンドも構築可能なエンジニアになりたいと思うようになり、<br>
+                    2023年12月～2月の期間に、HTML、CSS、Javascriptを学ぶ職業訓練を修了し、<br>
+                    現在は、PythonでAIアプリを制作する職業訓練にて基礎から学習しているところです。
+                </p>
+            </div>
+            </section>
+            <!-- スキルの紹介セクション -->
+            <section class="Skills" id="Skills">
+                <h2><img src="img/skills.png" alt="Skills"></h2>
+                <ul id="skills">
+                    <li><dl><dt><img src="img/html.png" alt="html"></dt><dd>★★★☆☆</dd><dd><p>基本的なスキルを修得しました。</p><p>スキルアップに向けて引き続き学習中です。</p></dd></dl></li>
+                    <li><dl><dt><img src="img/css.png" alt="css"></dt><dd>★★★☆☆</dd><dd><p>基本的なスキルを修得しました。</p><p>スキルアップに向けて引き続き学習中です。</p></dd></dl></li>
+                    <li><dl><dt><img src="img/js.png" alt="JavaScript"></dt><dd>★★★☆☆</dd><dd><p>基本的なスキルを修得しました。</p><p>スキルアップに向けて引き続き学習中です。</p></dd></dl></li>
+                    <li><dl><dt><img src="img/wordpress.png" alt="wordpress"></dt><dd>★★★☆☆</dd><dd><p>基本的なスキルを修得しました。</p><p>スキルアップに向けて引き続き学習中です。</p></dd></dl></li>
+                    <li><dl><dt><img src="img/java.png" alt="Java"></dt><dd>★★☆☆☆</dd><dd><p>Javaプログラミング能力検定3級 合格</p><p>オブジェクト指向の概念や基本的な記述の理解。<br>電卓などの簡単なアプリの作成。</p></dd></dl></li>
+                    <li><dl><dt><img src="img/python.png" alt="Python"></dt><dd>★☆☆☆☆</dd><dd><p>Python3エンジニア認定基礎試験に向けて、現在学習中です。</p></dd></dl></li>
+                </ul>
+            </section>
+            <!-- 作品集のセクション -->
+            <section class="Works" id="Works">
+                <h2><img src="img/works.png" alt="Works"></h2>
+                <ul class="work">
+                    <li><a href="https://me-mapps.com/"><dl><dt><img src="img/work_1.png" alt="サイトの画像"></dt><dd>Wordpressでの作成サイト</dd></dl></a></li>
+                    <li><a href="http://memapps.starfree.jp/game.html"><dl><dt><img src="img/work_2.png" alt="ゲームの画像"></dt><dd>Java scriptの制作物</dd></dl></a></li>
+                    <li><a href="http://localhost:8080/gourmetsearch"><dl><dt><img src="img/work_3.png" alt="アプリの画像"></dt><dd>Pythonでの制作物</dd></dl></a></li>
+                </ul>
+            </section>
+        </div>
+        <!-- お問い合わせのセクション -->
+        <section class="Contact" id="Contact">
+            <h2><img src="img/contact.png" alt="Contact"></h2> 
+            <form action="" method="post">
+                <h3>お問い合わせフォーム</h3>
+                <p id="dummy">※このフォームはダミーです。</p>
+                <p>お名前 <input type="text" name="user_name"></p>
+                <p>メールアドレス <input type="email" name="user_mail"></p>
+                <p>電話番号 <input type="text" name="user_tel_number"></p>
+                <p>お問い合わせ内容 <textarea name="message"></textarea></p>
+                <p>回答方法 
+                    <input type="radio" name="appoint" value="Mail" checked="checked">Mail 
+                    <input type="radio" name="appoint" value="TEL">TEL</p>
+                <p>連絡可能時間 <br>
+                    <input type="checkbox" name="Time" value="10:00~12:00">10:00~12:00 
+                    <input type="checkbox" name="Time" value="13:00~15:00">13:00~15:00 <br>
+                    <input type="checkbox" name="Time" value="15:00~17:00">15:00~17:00 
+                    <input type="checkbox" name="Time" value="17:00~18:30">17:00~18:30
+                </p>
+                <p class="submitBtn"><input type="submit" value="送信"></p>
+            </form>
+        </section>
+        <!-- ページTOPへ移動 -->
+        <a class="pagetop" href="#">
+            <div class="pagetop_arrow"></div>
+        </a>
+    </main>
+    <footer>
+        <p>© 2024 Shiba Masahiro.All Rights Reserved.</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="js/pagetop.js"></script>
+</body>
+</html>

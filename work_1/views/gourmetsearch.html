@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/main.css" type="text/css">
+    <title>Gourmet Search</title>
+</head>
+<body>
+    <header>
+        <!-- サイト名-->
+        <h1><img src="../static/img/midashi.png" alt="gourmet search"></h1>
+    </header>
+    <main>
+        <!-- 左上のスライド-->
+        <div class="img-box_left_upper">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <!-- 左下のスライド-->
+        <div class="img-box_left_bottom">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <!-- 検索セクション-->
+        <section >
+            <form method="post" action="/gourmetsearch">
+                <p>検索エリア</p>
+                <input type="text" id="area" size="50" name="input_text1" placeholder="例）「博多」「大名」など住所の一部もしくは全部">
+                <p>検索キーワード</p>
+                <input type="text" id="keyword" size="50" name="input_text2" placeholder="例）「焼肉」「個室」など 半角スペースで区切ってください">
+                <p>エリアとキーワードを入力して<br>検索ボタンを押してください</p>
+                <input type="submit" id="button1" value="検索">
+            </form>
+        </section>
+        <!-- 右上のスライド-->
+        <div class="img-box_right_upper">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <!-- 右下のスライド-->
+        <div class="img-box_right_bottom">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </main>
+    <!-- フッター-->
+    <footer>
+        <p>2024 ©️ ShibaMasahiro.All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

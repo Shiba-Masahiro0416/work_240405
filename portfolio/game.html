@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style_game.css">
+    <title>けいさんゲーム</title>
+</head>
+<body>
+    <header>
+        <!-- ボタンを横並びにするためのグループ-->
+        <div class="btnWrapper">
+            <!-- 遊び方のボタン-->
+            <button onclick="openPopup1()">あそびかた</button>
+            <!-- 計算問題の切り替えボタン-->
+            <button class="btn show" id="btn1">たしざん①</button>
+            <button class="btn" id="btn2">たしざん②</button>
+            <button class="btn" id="btn3">ひきざん①</button>
+            <button class="btn" id="btn4">ひきざん②</button>
+            <button class="btn" id="btn5">九九</button>
+            <button class="btn" id="btn6">わりざん</button>
+        </div>
+        <!-- メインビジュアル-->
+        <h1><img src="img/banner_1.png" alt="けいさんゲーム"></h1>
+    </header>
+    <main>
+        <!-- 正解の時に表示される画像-->
+        <p><img src="img/maru.png" alt="正解" id="maru"></p>
+        <!-- 100点以上の時に表示される画像-->
+        <p><img src="img/hanamaru.png" alt="花丸" id="hanamaru"></p>
+        <!-- 点数と経過時間の表示-->
+        <p><img src="img/score.png" alt="スコア"> <span id="score">0</span>点 <img src="img/time.png" alt="時間">: <span id="time">0.0</span>  秒</p>
+        <!-- 問題と解答記入欄-->
+        <form name="form1">
+        <input type="text" id="a" size="3" value=""> <img id="img" src="img/plus.png" alt="+"/>
+        <input type="text" id="b" size="3" value=""> <img src="img/equal.png" alt="=">
+        <!-- 解答を入力してEnterキーを押すと正誤判定へ--> 
+        <input type="text" name="c" id="c" size="3" onKeyPress="jedge();">
+    </form>
+        <!-- Startボタン（押したらゲーム開始）-->
+        <p class="start"><input type="button" value="Start" onclick="start();"></p>
+    </main> 
+    <footer>
+    <p>2024 ©️ MeMapps.All Rights Reserved.</p>
+    </footer>
+    <!-- 紙吹雪のエフェクトのライブラリ -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.2/dist/confetti.browser.min.js"></script>
+    <script>
+        // 時間と点数管理の変数
+        var startTime;
+        var timecounter;
+        var score = 0;
+        // 問題終了後にEnterキーを押した際の誤動作防止用の変数
+        var kaishi = "off";
+        // 計算問題の切り替え用変数
+        var problem = "tasu1";
+
+        // 正解の画像の初期値は非表示
+        document.getElementById("maru").style.display ="none";
+        // 花丸の画像の初期値は非表示
+        document.getElementById("hanamaru").style.display ="none";
+
+        // 各ボタンの要素を取得
+        let btn1 = document.getElementById('btn1');
+        let btn2 = document.getElementById('btn2');
+        let btn3 = document.getElementById('btn3');
+        let btn4 = document.getElementById('btn4');
+        let btn5 = document.getElementById('btn5');
+        let btn6 = document.getElementById('btn6');
+
+
+        // 全てのボタンを配列として取得
+        let allButtons = document.getElementsByClassName('btn');
+
+        // 画像の要素を取得
+        let img = document.getElementById('img');
+
+        // 各ボタンがクリックされたときの処理を設定
+        btn1.addEventListener('click', function() {
+            changeImage('img/plus.png');
+            setActiveButton(btn1);
+            problem = "tasu1";
+            document.getElementById("hanamaru").style.display ="none";
+        });
+
+        btn2.addEventListener('click', function() {
+            changeImage('img/plus.png');
+            setActiveButton(btn2);
+            problem = "tasu2";
+            document.getElementById("hanamaru").style.display ="none";
+        });
+        
+        btn3.addEventListener('click', function() {
+            changeImage('img/minus.png');
+            setActiveButton(btn3);
+            problem = "hiku1";
+            document.getElementById("hanamaru").style.display ="none";
+        });
+        
+        btn4.addEventListener('click', function() {
+            changeImage('img/minus.png');
+            setActiveButton(btn4);
+            problem = "hiku2";
+            document.getElementById("hanamaru").style.display ="none";
+        });
+        
+        btn5.addEventListener('click', function() {
+            changeImage('img/kakeru.png');
+            setActiveButton(btn5);
+            problem = "kuku";
+            document.getElementById("hanamaru").style.display ="none";
+        });
+        
+        btn6.addEventListener('click', function() {
+            changeImage('img/waru.png');
+            setActiveButton(btn6);
+            problem = "waru";
+            document.getElementById("hanamaru").style.display ="none";
+        });
+
+        // 画像を切り替える関数
+        function changeImage(path) {
+            img.src = path;
+        }
+        
+        // アクティブなボタンを設定する関数
+        function setActiveButton(activeButton) {
+            // すべてのボタンから 'show' クラスを削除
+            for (let i = 0; i < allButtons.length; i++) {
+                allButtons[i].classList.remove('show');
+            }
+        
+        // アクティブなボタンに 'show' クラスを追加
+        activeButton.classList.add('show');
+        }
+
+        // 「あそびかた」ボタンを押したら説明のポップアップが開く
+        function openPopup1() {
+            window.open("howToPlay.html");
+            document.getElementById("hanamaru").style.display ="none";
+        }
+
+        // ゲームを開始する関数
+        function start(){
+            kaishi = "on";
+            // scoreをリセットする
+            score = 0;
+            document.getElementById("score").innerHTML = score;
+            // 花丸の画像を消す
+            document.getElementById("hanamaru").style.display ="none";
+            // START時間を取得
+            startTime = (new Date()).getTime();
+            timer();
+            document.form1.c.focus();
+            // problem変数の値によって問題を作り分ける
+            if (problem == "kuku"){
+                genAddition();
+            } else if (problem == "tasu1" ){
+                genAddition();
+            } else if (problem == "tasu2" ){
+                genDouble();
+            } else if (problem == "hiku1") {
+                genSubtraction();
+            } else if (problem == "hiku2") {
+                genSubtractionDouble();
+            } else if (problem == "waru") {
+                genDivision();
+            }
+        }
+
+        // 制限時間管理の関数
+        function timer(){
+            displayTime = (new Date()).getTime() - startTime ;
+            document.getElementById("time").innerHTML = (displayTime / 1000).toFixed(1); 
+            if (displayTime <= 30000){
+                timecounter = setTimeout(timer, 100);
+            } else { //ゲーム終了の処理
+                document.getElementById("a").value = "";
+                document.getElementById("b").value = "";
+                clearTimeout(timecounter);
+                kaishi = "off";
+                if (score >= 100){
+                    alert("あなたは"+score+"点でした!　すばらしい！！");
+                    // 100点以上の時は花丸の画像と紙吹雪のエフェクトを表示する
+                    let hanamaru = document.getElementById("hanamaru");
+                    hanamaru.style.display ="block";
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+                    setTimeout( ()=>{
+                        confetti({
+                        particleCount: 200,
+                        spread: 150,
+                        origin: { y: 0.6 }
+                        });
+                    }, 500);
+                }else {
+                    alert("あなたは"+score+"点でした!　頑張りましょう!");
+                }
+            }
+        }
+            
+        //一桁の足し算と九九の数を取得
+        function genAddition(){
+            document.getElementById("a").value = Math.floor(Math.random() * 9) + 1;
+            document.getElementById("b").value = Math.floor(Math.random() * 9) + 1;
+            document.getElementById("c").value = "";
+        }
+        //５０までの数と一桁の数の足し算の数を取得
+        function genDouble() {
+            document.getElementById("a").value = Math.floor(Math.random() * 50) + 1;
+            document.getElementById("b").value = Math.floor(Math.random() * 9) + 1;
+            document.getElementById("c").value = "";
+        }
+        //割り算の数の取得
+        function genDivision() {
+            document.getElementById("a").value = Math.floor(Math.random() * 9) + 1;
+            document.getElementById("b").value = Math.floor(Math.random() * 9) + 1;
+            document.getElementById("c").value = "";
+            a = Number(document.getElementById("a").value);
+            b = Number(document.getElementById("b").value);
+            document.getElementById("a").value = a*b;
+        }
+        //一桁の引き算の数の取得
+        function genSubtraction() {
+            document.getElementById("a").value = Math.floor(Math.random() * 9) + 1;
+            document.getElementById("b").value = Math.floor(Math.random() * 9) + 1;
+            document.getElementById("c").value = "";
+            a = Number(document.getElementById("a").value);
+            b = Number(document.getElementById("b").value);
+            document.getElementById("a").value = a + b;
+        }
+        //30までの数と一桁の引き算の数の取得
+        function genSubtractionDouble() {
+            document.getElementById("a").value = Math.floor(Math.random() * 30) + 1;
+            document.getElementById("b").value = Math.floor(Math.random() * 9) + 1;
+            document.getElementById("c").value = "";
+            a = Number(document.getElementById("a").value);
+            b = Number(document.getElementById("b").value);
+            document.getElementById("a").value = a + b;
+        }
+        // 正誤判定の関数
+        function jedge() {
+            if (event.keyCode === 13 && kaishi === "on") { 
+                // a, b, cの値を取得する
+                let a = Number(document.getElementById("a").value);
+                let b = Number(document.getElementById("b").value);
+                let c = Number(document.getElementById("c").value);
+                // 掛け算の判定
+                if (problem === "kuku") {
+                    // 正解の処理
+                    if (a * b === c) {
+                        score += 10;
+                        // 正解の画像を表示する
+                        const maru = document.getElementById("maru");
+                        maru.style.display ="block";
+                        // 正解なら画像を表示して0.5秒待つ
+                        setTimeout( ()=>{
+                            // 0.5秒後に画像を消して
+                            maru.style.display ="none";
+                            // scoreを更新して
+                            document.getElementById("score").innerHTML = score;
+                            // 新しい問題を作成する
+                            genAddition();
+                        }, 500);
+                    }
+                    // 不正解ならば、回答欄をクリアする
+                    else {
+                        document.getElementById("c").value = "";
+                    }
+                // 足し算の判定
+                } else if (problem === "tasu1" || problem === "tasu2") {
+                    // 正解の処理
+                    if (a + b === c) {
+                        score += 10;
+                        // 正解の画像を表示する
+                        const maru = document.getElementById("maru");
+                        maru.style.display ="block";
+                        // 正解なら画像を表示して0.5秒待つ
+                        setTimeout( ()=>{
+                            // 0.5秒後に画像を消して
+                            maru.style.display ="none";
+                            // scoreを更新して
+                            document.getElementById("score").innerHTML = score;
+                            // 新しい問題を作成する
+                            if (problem === "tasu1") {
+                                // 一桁と一桁の足し算
+                                genAddition();
+                            }else {
+                                // 二桁と一桁の足し算
+                                genDouble();
+                            }
+                        }, 500);
+                    }
+                    // 不正解ならば、回答欄をクリアする
+                    else {
+                        document.getElementById("c").value = "";
+                    }
+                // 引き算の判定
+                } else if (problem === "hiku1" || problem === "hiku2") {
+                    // 正解ならば、scoreに10点を加算し、次の問題を生成する
+                    if (a - b === c) {
+                        score += 10;
+                        // 正解の画像を表示する
+                        const maru = document.getElementById("maru");
+                        maru.style.display ="block";
+                        // 正解なら画像を表示して0.5秒待つ
+                        setTimeout( ()=>{
+                            // 0.5秒後に画像を消して
+                            maru.style.display ="none";
+                            // scoreを更新して
+                            document.getElementById("score").innerHTML = score;
+                            // 新しい問題を作成する
+                            if (problem === "hiku1") {
+                                // 一桁と一桁の引き算
+                                genSubtraction();
+                                // 二桁と一桁の引き算
+                            }else {
+                                genSubtractionDouble();
+                            }
+                        }, 500);
+                    }
+                    // 不正解ならば、回答欄をクリアする
+                    else {
+                        document.getElementById("c").value = "";
+                    }
+                // 割り算の判定
+                } else if (problem === "waru") {
+                    // 正解ならば、scoreに10点を加算し、次の問題を生成する
+                    if (a / b === c) {
+                        score += 10;
+                        // 正解の画像を表示する
+                        const maru = document.getElementById("maru");
+                        maru.style.display ="block";
+                        // 正解なら画像を表示して0.5秒待つ
+                        setTimeout( ()=>{
+                            // 0.5秒後に画像を消して
+                            maru.style.display ="none";
+                            // scoreを更新して
+                            document.getElementById("score").innerHTML = score;
+                            // 新しい問題を作成する
+                            genDivision();
+                        }, 500);  
+                    }
+                    // 不正解ならば、回答欄をクリアする
+                    else {
+                        document.getElementById("c").value = "";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
